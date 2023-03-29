@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Random Spotify Playlist</title>
+  </head>
+  <body>
+    <h1>Random Spotify Playlist</h1>
+    <p id="playlist-name">Loading...</p>
+    <script>
+      // Create XMLHttpRequest object
+      const xhr = new XMLHttpRequest();
+
+      // Define callback function for when response is received
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // Parse JSON response
+          const response = JSON.parse(xhr.responseText);
+          const playlistName = response.name;
+
+          // Display playlist name on page
+          const playlistNameEl = document.getElementById('playlist-name');
+          playlistNameEl.textContent = playlistName;
+        }
+      };
+
+      // Open and send request to server to fetch random playlist
+      xhr.open('GET', '/random_playlist', true);
+      xhr.send();
+    </script>
+  </body>
+</html>
